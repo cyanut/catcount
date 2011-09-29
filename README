@@ -1,0 +1,5 @@
+Scripts to help routine catFISH counting.
+
+shuffle.py: softlink image batches into numbers in random order, so you can count them blindly.
+
+dumpcnt.py: Collects batches of cell counting results, analyze, output a "|" delimited table, and a nice bar-graph. 
