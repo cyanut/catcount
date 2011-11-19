@@ -96,6 +96,8 @@ def poolanimal(countres, prefix="sl", postfunc=""):
     finalanimalres = {}
     for imgpath in countres:
         n = getanimalnumber(imgpath, prefix)
+        if not n:
+            continue
         if (not n in animalres):
             animalres[n] = copy.copy(countres[imgpath])
         else:
@@ -144,7 +146,11 @@ def prob_arc_gfp(cellcount):
 
 def getanimalnumber(imgpath, prefix="sl"):  
     fname = os.path.basename(imgpath)
-    return re.findall("(?<="+prefix+")[0-9]+", fname)[0]
+    animnum = re.findall(prefix+".*?([0-9]+)", fname)
+    if animnum:
+        return animnum[0]
+    else:
+        return None
 
 
 def vbarplot(groupdata):
