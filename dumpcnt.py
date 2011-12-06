@@ -146,7 +146,7 @@ def prob_arc_gfp(cellcount):
 
 def getanimalnumber(imgpath, prefix="sl"):  
     fname = os.path.basename(imgpath)
-    animnum = re.findall(prefix+".*?([0-9]+)", fname)
+    animnum = re.findall("^"+prefix+".*?([0-9]+)", fname)
     if animnum:
         return animnum[0]
     else:
@@ -244,12 +244,12 @@ if __name__ == "__main__":
     c = poolanimal(imgcounts, postfunc=prob_arc, prefix=pref)
     counts = poolanimal(imgcounts, postfunc=count_arc, prefix=pref)
     allc = poolanimal(imgcounts, postfunc=prob_arc_gfp, prefix=pref)
-    dc = poolanimal(imgcounts, postfunc=dirty_prob_arc, prefix=pref)
+    #dc = poolanimal(imgcounts, postfunc=dirty_prob_arc, prefix=pref)
     d = getgroupdic(groupf)
     cm = getcomments(groupf)
     print_table(c, d, cm)
     print_table(counts, d, cm)
     print_table(allc, d, cm)
-    print_table(dc, d, cm)
+    #print_table(dc, d, cm)
     g = poolgroup(c, d)
     vbarplot(g)
