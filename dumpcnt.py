@@ -236,6 +236,9 @@ def print_table(animalres, dic, comments={}):
                 comments.get(key, ""))))
 
 if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Usage: "+sys.argv[0]+" groupfile prefix imgfiles...")
+        quit()
     groupf = sys.argv[1]
     pref = sys.argv[2] 
     imgcounts = getcounts(sys.argv[3:])
