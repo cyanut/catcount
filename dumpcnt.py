@@ -183,7 +183,7 @@ def vbarplot(groupdata):
     axislw = barlw
 
     fig = plt.figure()
-    ax = fig.add_subplot(111)
+    ax = fig.add_subplot(111, axisbelow=True)
     for s in ax.spines.values():
         s.set_linewidth(axislw)
     ax.spines["right"].set_color("none")
@@ -228,6 +228,7 @@ def vbarplot(groupdata):
     ax.set_xticks(ticks)
     ax.set_xticklabels(xlabel, size="large")
     ax.set_ylabel(ylabel, weight="bold", size="large")
+    ax.yaxis.grid(color='gray', linestyle='-')
     plt.show()
 
 def print_table(animalres, dic, comments={}):
