@@ -88,14 +88,22 @@ def getcomments(fname):
     f.close()
     return commentdic
 
-def poolanimal(countres, prefix="sl", postfunc=""):
+def getanimalcode(imgpath):
+    fname = os.path.basename(imgpath)
+    animcode = re.findall("^(.+?[0-9]+)", fname)
+    if animcode:
+        return ''.join(x for x in animcode[0] if x != '-')
+    else:
+        return None
+
+def poolanimal(countres, postfunc=""):
     if postfunc == "":
         def postfunc(m):
             return m
     animalres = {}
     finalanimalres = {}
     for imgpath in countres:
-        n = getanimalnumber(imgpath, prefix)
+        n = getanimalcode(imgpath)
         if not n:
             continue
         if (not n in animalres):
@@ -142,7 +150,9 @@ def dirty_prob_arc(cellcount):
 def prob_arc_gfp(cellcount):
     return OrderedDict([\
             ("pGFP", cellcount[2]/1.0/cellcount[0]), \
-            ("pArc", cellcount[1]/1.0/cellcount[0])])
+            ("pArc", cellcount[1]/1.0/cellcount[0]), \
+            ("pBoth", cellcount[3]/1.0/cellcount[0]), \
+            ("pChance", cellcount[1]*cellcount[2]/1.0/cellcount[0]/cellcount[0])])
 
 def getanimalnumber(imgpath, prefix="sl"):  
     fname = os.path.basename(imgpath)
@@ -240,14 +250,13 @@ if __name__ == "__main__":
         print("Usage: "+sys.argv[0]+" groupfile prefix imgfiles...")
         quit()
     groupf = sys.argv[1]
-    pref = sys.argv[2] 
-    imgcounts = getcounts(sys.argv[3:])
+    imgcounts = getcounts(sys.argv[2:])
     for key in imgcounts:
         print(key + "|" + "|".join([str(i) for i in imgcounts[key]]))
-    c = poolanimal(imgcounts, postfunc=prob_arc, prefix=pref)
-    counts = poolanimal(imgcounts, postfunc=count_arc, prefix=pref)
-    allc = poolanimal(imgcounts, postfunc=prob_arc_gfp, prefix=pref)
-    #dc = poolanimal(imgcounts, postfunc=dirty_prob_arc, prefix=pref)
+    c = poolanimal(imgcounts, postfunc=prob_arc)
+    counts = poolanimal(imgcounts, postfunc=count_arc)
+    allc = poolanimal(imgcounts, postfunc=prob_arc_gfp)
+    #dc = poolanimal(imgcounts, postfunc=dirty_prob_arc)
     d = getgroupdic(groupf)
     cm = getcomments(groupf)
     print_table(c, d, cm)
