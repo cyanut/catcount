@@ -134,8 +134,8 @@ def prob_arc(cellcount):
     return OrderedDict([\
             #("pGFP", cellcount[2]/1.0/cellcount[0]), \
             ("Total", cellcount[1]/1.0/cellcount[0]), \
-            ("GFP-", (cellcount[1]-cellcount[3])/1.0/\
-            (cellcount[0]-cellcount[2])), \
+            #("GFP-", (cellcount[1]-cellcount[3])/1.0/\
+            #(cellcount[0]-cellcount[2])), \
             ("!GFP+", cellcount[3]/1.0/cellcount[2])])
 
 def dirty_prob_arc(cellcount):    
