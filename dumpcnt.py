@@ -246,6 +246,7 @@ def print_table(animalres, dic, comments={}):
                 "\t".join(["%.4f" %i for i in animalres[key].values()]),\
                 comments.get(key, ""))))
 
+
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage: "+sys.argv[0]+" groupfile prefix imgfiles...")
