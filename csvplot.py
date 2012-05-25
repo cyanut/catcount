@@ -5,6 +5,20 @@ from collections import OrderedDict
 import csv
 import sys
 
+def transpose(d):
+    td = OrderedDict([])
+    for k1, v in d.items():
+        for k2, v2 in v.items():
+            if not k2 in td:
+                td[k2] = OrderedDict([])
+            if not k1 in td[k2]:
+                td[k2][k1] = v2
+
+    return td
+                
+
+
+
 f = csv.reader(open(sys.argv[1]))
 mnlist = f.next()[1:]
 data = []
@@ -34,5 +48,7 @@ for k in d:
                                "sterr":dumpcnt.sterr(x),\
                                "size":len(x)} for x in d[k]]))
 
+pprint(gd)
+gd = transpose(gd)
 pprint(gd)
 dumpcnt.vbarplot(gd)

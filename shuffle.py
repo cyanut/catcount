@@ -8,6 +8,8 @@ from math import log
 if __name__ == "__main__":
     fnames = sys.argv[1:]
     d = os.path.commonprefix(fnames)
+    if d[-1] != '/':
+        d = d[:d.rfind('/')]
     random.shuffle(fnames)
 
     zpad = int(log(len(fnames), 10))
